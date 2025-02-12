@@ -5,7 +5,6 @@ import boto3
 from botocore.exceptions import ClientError
 import uvicorn
 import requests
-from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
@@ -113,12 +112,10 @@ async def proxy_endpoint(request: Request):
 @app.post("/chat/completions")
 async def proxy_endpoint_v2(request: Request):
     payload = await request.json()  # Read incoming payload
-    if payload.get("stream", False):
-        response = requests.post(TARGET_URL, json=payload, stream=True)  # Forward the payload with stream
-        return StreamingResponse(response.raw)  # Return the streaming response from the target service
-    else:
-        response = requests.post(TARGET_URL, json=payload)  # Forward the payload
-        return response.json()  # Return the response from the target service
+    payload["stream"] = False
+    response = requests.post(TARGET_URL, json=payload)  # Forward the payload
+    
+    return response.json()  # Return the response from the target service
 
 
 
