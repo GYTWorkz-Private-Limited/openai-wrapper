@@ -108,6 +108,15 @@ async def proxy_endpoint(request: Request):
     
     return response.json()  # Return the response from the target service
 
+ # Change to the actual target service URL
+@app.post("/chat/completions")
+async def proxy_endpoint_v2(request: Request):
+    payload = await request.json()  # Read incoming payload
+    
+    response = requests.post(TARGET_URL, json=payload)  # Forward the payload
+    
+    return response.json()  # Return the response from the target service
+
 
 
 if __name__ == "__main__":
