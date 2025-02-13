@@ -16,6 +16,7 @@ class CompleationModel(BaseModel):
     model: str
     messages: list[dict]
     temperature: float = 0.7
+    max_tokens: int = 512
 
 
 @app.get("/health")
@@ -63,7 +64,7 @@ async def generate(inp: CompleationModel):
         response = client.converse(
             modelId=model,
             messages=bedrock_messages,
-            inferenceConfig={"maxTokens": 512, "temperature": temperature, "topP": 0.9},
+            inferenceConfig={"maxTokens": inp.max_tokens, "temperature": temperature, "topP": 0.9},
         ) 
         response_text = response["output"]["message"]["content"][0]["text"]
         response = {
