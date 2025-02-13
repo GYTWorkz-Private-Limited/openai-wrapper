@@ -125,9 +125,19 @@ async def v1_generate(inp: CompleationModel):
         print(f"ERROR: Can't invoke '{model}'. Reason: {e}")
         exit(1)
 
+valid_models = ["mistral.mistral-large-2402-v1:0", "mistral.mistral-small-2402-v1:0", "meta.llama3-3-70b-instruct-v1:0", "meta.llama3-2-90b-instruct-v1:0", "mistral.mixtral-8x7b-instruct-v0:1", "anthropic.claude-3-5-sonnet-20240620-v1:0"]
 @app.post("/chat/completions")
 async def generate(inp: CompleationModel):
     model = inp.model
+    
+    if model == "gpt-40-mini":
+        model = "mistral.mistral-small-2402-v1:0"
+    elif model == "gpt-4o":
+        model = "mistral.mistral-large-2402-v1:0"
+
+
+    if model not in valid_models:
+        model =  "mistral.mistral-small-2402-v1:0"
     messages = inp.messages
     temperature = inp.temperature
 
@@ -135,7 +145,7 @@ async def generate(inp: CompleationModel):
     bedrock_messages = []
     for message in messages:
         bedrock_messages.append({
-            "role": message.get("role"),
+            "role": message.get("role") if message.get("role") == "user" or message.get("role") == "assistant" else "assistant",
             "content": [{"text": message.get("content")}]
         })
 
