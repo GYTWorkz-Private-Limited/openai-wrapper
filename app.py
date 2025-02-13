@@ -129,7 +129,7 @@ valid_models = ["mistral.mistral-large-2402-v1:0", "mistral.mistral-small-2402-v
 @app.post("/chat/completions")
 async def generate(inp: CompleationModel):
     model = inp.model
-    
+
     if model == "gpt-40-mini":
         model = "mistral.mistral-small-2402-v1:0"
     elif model == "gpt-4o":
@@ -145,7 +145,8 @@ async def generate(inp: CompleationModel):
     bedrock_messages = []
     for message in messages:
         bedrock_messages.append({
-            "role": message.get("role") if message.get("role") == "user" or message.get("role") == "assistant" else "assistant",
+            # "role": message.get("role") if message.get("role") == "user" or message.get("role") == "assistant" else "assistant",
+            "role": "user",
             "content": [{"text": message.get("content")}]
         })
 
