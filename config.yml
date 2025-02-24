@@ -9,7 +9,7 @@ model_list:
 
   - model_name: lite-text ### RECEIVED MODEL NAME ###
     litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
-      model: bedrock/meta.llama3-8b-instruct-v1:0 ### MODEL NAME sent to `litellm.completion()` ###
+      model: bedrock/mistral.mistral-7b-instruct-v0:2 ### MODEL NAME sent to `litellm.completion()` ###
   
   - model_name: claude-3-5-sonnet ### RECEIVED MODEL NAME ###
     litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
