@@ -6,33 +6,16 @@ model_list:
   - model_name: gpt-4o ### RECEIVED MODEL NAME ###
     litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
       model: bedrock/mistral.mistral-large-2402-v1:0 ### MODEL NAME sent to `litellm.completion()` ###
-           # [OPTIONAL] Rate limit for this deployment: in requests per minute (rpm)
-  # - model_name: bedrock-claude-v1 
-  #   litellm_params:
-  #     model: bedrock/anthropic.claude-instant-v1
-  # - model_name: gpt-3.5-turbo
-  #   litellm_params:
-  #     model: azure/gpt-turbo-small-ca
-  #     api_base: https://my-endpoint-canada-berri992.openai.azure.com/
-  #     api_key: "os.environ/AZURE_API_KEY_CA"
-  #     rpm: 6
-  # - model_name: anthropic-claude
-  #   litellm_params: 
-  #     model: bedrock/anthropic.claude-instant-v1
-  #     ### [OPTIONAL] SET AWS REGION ###
-  #     aws_region_name: us-east-1
-  # - model_name: vllm-models
-  #   litellm_params:
-  #     model: openai/facebook/opt-125m # the `openai/` prefix tells litellm it's openai compatible
-  #     api_base: http://0.0.0.0:4000/v1
-  #     api_key: none
-  #     rpm: 1440
-    model_info: 
-      version: 2
+
+  - model_name: lite-text ### RECEIVED MODEL NAME ###
+    litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
+      model: bedrock/amazon.nova-micro-v1:0 ### MODEL NAME sent to `litellm.completion()` ###
   
-  # Use this if you want to make requests to `claude-3-haiku-20240307`,`claude-3-opus-20240229`,`claude-2.1` without defining them on the config.yaml
-  # Default models
-  # Works for ALL Providers and needs the default provider credentials in .env
+  - model_name: claude-3-5-sonnet ### RECEIVED MODEL NAME ###
+    litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
+      model: bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0 ### MODEL NAME sent to `litellm.completion()` ###
+
+
   - model_name: "*" 
     litellm_params:
       model: "*"
