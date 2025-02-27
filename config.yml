@@ -19,6 +19,10 @@ model_list:
     litellm_params: # all params accepted by litellm.completion() - https://docs.litellm.ai/docs/completion/input
       model: bedrock/us.anthropic.claude-3-7-sonnet-20250219-v1:0 ### MODEL NAME sent to `litellm.completion()` ###
 
+  - model_name: titan-embed-v2
+    litellm_params:
+      model: bedrock/amazon.titan-embed-text-v2:0
+
   - model_name: "*" 
     litellm_params:
       model: "*"
